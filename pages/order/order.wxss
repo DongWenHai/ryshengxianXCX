@@ -1,0 +1,79 @@
+.order-nav{
+  width:100%;
+  height:44px;
+  background:#fff;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:999;
+}
+.order-nav-item{
+  text-align: center;
+  line-height:44px;
+}
+.order-nav-item>text{
+  box-sizing: border-box;
+  display: inline-block;
+}
+.order-active>text{
+  color:#19D368;
+  border-bottom:1px solid #19D368;
+}
+.order-btn1{
+  float:right;
+  padding:0 20rpx;
+  border-radius:12rpx;
+  background:#19D368;
+  color:#fff;
+  line-height:56rpx;
+  font-size:28rpx;
+  margin-left:20rpx;
+  border:1px solid #19D368;
+}
+.order-btn2{
+  float:right;
+  padding:0 20rpx;
+  border-radius:12rpx;
+  border:1px solid #19D368;
+  color:#19D368;
+  line-height:56rpx;
+  font-size:28rpx;
+  box-sizing: border-box;
+  margin-left:20rpx;
+}
+.dot{
+  width:14px;
+  height:14px;
+  display:inline-block;
+  border-radius: 50%;
+  margin-right:10px;
+}
+.logisticsBox{
+  height:calc(100% - 35px);
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.close{
+  width:48rpx;
+  height:48rpx;
+  position:absolute;
+  top:5rpx;
+  right:20rpx;
+}
+
+
+/* 揽件 */
+.yc1{background:#ffa70e}
+/* 在途 */
+.yc2{background:#06fd7a}
+/* 派件 */
+.yc3{background:#e6e9bb}
+/* 签收 */
+.yc4{background:#0597fd}
+/* 问题件  */
+.yc5{background:#fd0505} 
+/* 其他  */
+.yc5{background:#999} 

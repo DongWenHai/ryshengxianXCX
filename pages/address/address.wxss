@@ -1,0 +1,89 @@
+page{
+  width:100%;
+  height:100%;
+  background:#f8f8f8;
+}
+.noaddress{
+  height:100%;
+  background:#fff;
+  padding:400rpx 30rpx 0;
+  box-sizing: border-box;
+}
+.noaddress-title{
+  text-align: center;
+}
+.address-add-btn{
+  width:100%;
+  height:88rpx;
+  line-height:88rpx;
+  text-align: center;
+  color:#fff;
+  background:#19D368;
+  margin-top:60rpx;
+}
+.address-add-btn:active{
+  opacity: .7;
+}
+.address-add-btn-wx{
+  width:100%;
+  height:88rpx;
+  line-height:88rpx;
+  text-align: center;
+  border:2px solid #19D368;
+  margin-top:30rpx;
+  box-sizing: border-box;
+  color:#19D368;
+}
+.address-add-btn-wx:active{
+  background:#e2e2e2;
+}
+
+.address-container{
+  padding-bottom:60px;
+}
+.address-item{
+  width:calc(100% - 20rpx);
+  background:#fff;
+  margin:0 auto 20rpx;
+}
+.address-detail{
+  border-bottom:1px solid #f8f8f8;
+  padding:30rpx;
+}
+.address-control{
+  padding:20rpx 30rpx;
+}
+.address-tabBar{
+  width:100%;
+  height:60px;
+  padding:10px 0;
+  box-sizing: border-box;
+  background:#fff;
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:99;
+  display:-webkit-flex;
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.address-add-wx{
+  width:40%;
+  height:40px;
+  border:1px solid #19D368;
+  line-height:38px;
+  box-sizing: border-box;
+  text-align: center;
+  color:#19D368;
+}
+.address-add-new{
+  width:40%;
+  height:40px;
+  line-height:40px;
+  background:#19D368;
+  color:#fff;
+  text-align: center;
+}
+.r_mt20{margin-top:20rpx;}
+.r_pl20{padding-left:20rpx;}

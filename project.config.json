@@ -1,0 +1,93 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": [
+			"source"
+		]
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.2.4",
+	"appid": "wx67ace3c752553e60",
+	"projectname": "%E8%8B%A5%E5%AE%87%E7%94%9F%E9%B2%9C%E5%B0%8F%E7%A8%8B%E5%BA%8F1",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 7,
+			"list": [
+				{
+					"id": -1,
+					"name": "user",
+					"pathName": "pages/user/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "search",
+					"pathName": "pages/search/search",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "productDetail",
+					"pathName": "pages/productDetail/productDetail",
+					"query": "pid=6"
+				},
+				{
+					"id": -1,
+					"name": "coupon",
+					"pathName": "pages/coupon/coupon",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "products",
+					"pathName": "pages/products/products",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "cart",
+					"pathName": "pages/cart/cart",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "getUserInfo",
+					"pathName": "pages/getUserInfo/getUserInfo",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "refund",
+					"pathName": "pages/refund/refund"
+				}
+			]
+		}
+	}
+}

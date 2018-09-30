@@ -1,0 +1,157 @@
+<view class="order">
+  <view class="order-nav bg_white">
+    <view class="weui-flex">
+      <view class="weui-flex__item order-nav-item {{activeIndex==0?'order-active':''}}" data-index="0" bindtap="toggalNav">
+        <text class="lh44">全部</text>
+      </view>
+      <view class="weui-flex__item order-nav-item {{activeIndex==1?'order-active':''}}" data-index="1" bindtap="toggalNav">
+        <text class="lh44">待付款</text>
+      </view>
+      <view class="weui-flex__item order-nav-item {{activeIndex==2?'order-active':''}}" data-index="2" bindtap="toggalNav">
+        <text class="lh44">待发货</text>
+      </view>
+      <view class="weui-flex__item order-nav-item {{activeIndex==3?'order-active':''}}" data-index="3" bindtap="toggalNav">
+        <text class="lh44">待收货</text>
+      </view>
+      <view class="weui-flex__item order-nav-item {{activeIndex==4?'order-active':''}}" data-index="4" bindtap="toggalNav">
+        <text class="lh44">退款/售后</text>
+      </view>
+    </view>
+  </view>
+  <view style="height:108rpx;"></view>
+
+  <view class='order-container'>
+
+    <block wx:if="{{noData}}">
+      <view class="noData">
+        <image mode="widthFix" src="/images/nodata/order.png"></image>
+        <view class="cl_b3 r_pt20">暂时没有订单</view>
+      </view>
+    </block>
+    <block wx:if="{{!noData}}">
+
+      <block wx:for="{{orderData}}" wx:key="{{oIndex}}" wx:for-index="oIndex" wx:for-item="oItem">
+      <view class="bg_white r_mb20" >
+        <navigator url="/pages/orderDetail/orderDetail?orderId={{oItem.orderid}}">
+          <block wx:for="{{oItem.product_data}}" wx:key="{{pIndex}}" wx:for-index="pIndex" wx:for-item="pItem">
+          <view class="pcell">
+            <view class="clearfix">
+              <view class="fl list-img">
+                <image class="" mode='widthFix' lazy-load='true' src="{{pItem.product_img}}"></image>
+              </view>
+              <view class="fl list-content">
+                <view class="r_fz30 lh20 tlie">{{pItem.product_name}}</view>
+                <view class="cl_b9 r_fz28">{{pItem.product_attr_name}} <text class="fr">×{{pItem.product_count}}</text></view>
+                <view class="clearfix">
+                  <view class="fl maincolor lh25">￥{{pItem.product_price}}</view>
+                  
+                </view>
+              </view>
+            </view>
+          </view>
+          </block>
+        </navigator>
+        <view class="ph r_pt20 clearfix bt1">
+          <view class="fl r_fz28 r_lh60">共{{oItem.product_data.length}}件商品 合计：<text class="f_fz36">￥{{oItem.total_money}}</text></view>
+          <view class="fr clearfix">
+            <block wx:if="{{oItem.order_status == -1}}">
+              <block wx:if="{{oItem.refund_status == 0}}">
+                <text class="fr r_fz24 cl_b9 lh25">退款失败</text>
+              </block>
+              <block wx:if="{{oItem.refund_status == 1}}">
+                <text class="fr r_fz24 cl_b9 lh25">待处理</text>
+              </block>
+              <block wx:if="{{oItem.refund_status == 2}}">
+                <text class="fr r_fz24 cl_b9 lh25">处理中</text>
+              </block>
+              <block wx:if="{{oItem.refund_status == 3}}">
+                <text class="fr r_fz24 cl_b9 lh25">退款成功</text>
+              </block>
+            </block>
+            <block wx:if="{{oItem.order_status == 0&&activeIndex == 0}}">
+              <text class="fr r_fz24 cl_b9 lh25">交易关闭</text>
+            </block>
+            <block wx:if="{{oItem.order_status == 3&&activeIndex == 0}}">
+              <text class="fr r_fz24 cl_b9 lh25">待发货</text>
+            </block>
+            <block wx:if="{{oItem.order_status == 4&&activeIndex == 0}}">
+              <text class="fr r_fz24 cl_b9 lh25">待收货</text>
+            </block>
+          </view>
+        </view>
+        <view class="clearfix r_pb20 r_pr20">
+          <block wx:if="{{oItem.order_status == 0}}">
+            <view class="order-btn2" data-orderid="{{oItem.orderid}}" data-id="{{oItem.id}}" bindtap='deleteOrder'>删除订单</view>
+          </block>
+          <block wx:if="{{oItem.order_status == 1}}">
+            <view class="order-btn1" data-orderid="{{oItem.orderid}}" bindtap="payOrder">立即付款</view>
+            <view class="order-btn2" data-orderid="{{oItem.orderid}}" data-id="{{oItem.id}}" bindtap='cancleOrder'>取消订单</view>
+          </block>
+          <block wx:if="{{oItem.order_status == 3}}">
+            <view class="order-btn1" data-autoid="{{oItem.id}}" bindtap="tipsSend">提醒发货</view>
+            <navigator class="order-btn2"  url="/pages/refund/refund?backpage=1&orderid={{oItem.orderid}}">申请退货</navigator>
+          </block>
+          <block wx:if="{{oItem.order_status == 4}}">
+            <view class="order-btn1" data-orderid="{{oItem.orderid}}" bindtap="confirmAccept">确认收货</view>
+            <view class="order-btn1" data-waybill_no="{{oItem.waybill_no}}" data-logistics_code="{{oitem.logistics_code}}" bindtap="lookLogistics">查看物流</view>
+            <navigator class="order-btn2"  url="/pages/refund/refund?backpage=1&orderid={{oItem.orderid}}">申请退货</navigator>
+          </block>
+        </view>
+      </view>
+      </block>
+
+      <view class="tc cl_b9">
+        <block wx:if="{{isGetAll}}">
+          没有更多了
+        </block>
+        <block wx:if="{{!isGetAll}}">
+          拼命加载中...
+        </block>
+      </view>
+    </block>
+    
+
+  </view>
+
+  <block wx:if="{{isShowLogistics}}">
+    <view class="actionModel" catchtouchmove='true'>
+      <view class="mask" bindtap="closeLogistics"></view>
+      <view class="actionModelContainer" style="width:calc(100% - 60rpx);height:86%;overflow:hidden;">
+        <view class="close" bindtap="closeLogistics"><text class="fa fa-times-circle cl_b3 fa-6x"></text></view>
+        <view class="tc r_pb20">物流服务</view>
+        <scroll-view scroll-y class="logisticsBox">
+        <view class="r_fz24 lh28">物流公司：{{LogisticsStore[logistics.ShipperCode]}}</view>
+        <view class="r_fz24 lh28">物流单号：{{logistics.LogisticCode}}</view>
+         <block wx:for="{{logistics.Traces}}" wx:key="{{index}}"> 
+          <view class="weui-cell notBorder">
+            <view class="weui-cell__hd">
+            <!-- <block wx:if="{{item.Action == 1}}">
+            <text class="dot yc1"></text>
+            </block>
+            <block wx:elif="{{item.Action == 2}}"> -->
+            <text class="dot yc2"></text>
+            <!-- </block>
+            <block wx:elif="{{item.Action == 202}}">
+            <text class="dot yc3"></text>
+            </block>
+            <block wx:elif="{{item.Action == 3}}">
+            <text class="dot yc4"></text>
+            </block>
+            <block wx:elif="{{item.Action == 4}}">
+            <text class="dot yc5"></text>
+            </block>
+            <block wx:else>
+            <text class="dot yc6"></text>
+            </block> -->
+            </view>
+            <view class="weui-cell__bd">
+              <view class="cl_b6 r_fz24">{{item.AcceptTime}}</view>
+              <view class="r_fz24">{{item.AcceptStation}}</view>
+            </view>
+          </view>
+         </block> 
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+</view>

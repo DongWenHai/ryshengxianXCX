@@ -1,0 +1,14 @@
+{
+  "extEnable": true,
+  "extAppid": "wx67ace3c752553e60",
+  "directCommit": false,
+  "ext": {
+    "appid": "wx67ace3c752553e60",
+    "api_url": "https://www.ruoyw.cn/api/new_mall/shop3/public/api/data/?appid=wx67ace3c752553e60",
+    "app_type": 1
+  },
+  "networkTimeout": {
+    "request": 30000,
+    "downloadFile": 30000
+  }
+}

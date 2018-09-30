@@ -1,0 +1,33 @@
+<view class="search">
+  <view class="search-box">
+    <view class="search-input">
+      <view class="search-icons" bindtap="search"><image src="/images/icons/search.png"></image></view>
+      <input auto-focus='true' type="text" placeholder='搜索' maxlength="30" confirm-type="搜索" value="{{keyWords}}" bindinput="setKeyWords" bindconfirm='search'></input>
+    </view>
+  </view>
+
+  <view class="search-container">
+    <!-- <view class="search-hot">
+      <view class="search-key">苹果</view>
+      <view class="search-key">囿山香梨</view>
+      <view class="search-key">青苹果</view>
+    </view> -->
+
+    <view class="search-history" wx:if="{{historyKeyWords.length>0?true:false}}">
+      <view class="search-history-title">
+        <view>搜索历史</view>
+        <block wx:if="{{delete_history}}">
+        <view bindtap="deleteAllHistoryKeyWords">清除</view>
+        </block>
+        <block wx:if="{{!delete_history}}">
+        <view bindtap='closeDeleteHistory'>完成</view>
+        </block>
+      </view>
+      <view class="search-hot">
+        <block wx:for="{{historyKeyWords}}" wx:key="{{index}}">
+        <view class="search-his" bindlongpress='openDeleteHistory' data-keywords="{{item}}" bindtap='keySearch'><view hidden="{{delete_history}}" data-index="{{index}}" class="delete-icon" bindtap='deleteHistoryKeyWords'></view>{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

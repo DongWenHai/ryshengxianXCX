@@ -1,0 +1,51 @@
+<view class="cart">
+  <block wx:if="{{!noData}}">
+    <view class="hascart">
+      <image class="cart-boder" src="/images/icons/cartborder.png"></image>
+      <block wx:for="{{cartList}}" wx:key="{{index}}">
+      <view class="product-item">
+        <view class="product-select">
+          <view class="select-icon" data-id="{{item.id}}" bindtap='selectCart'><image src="{{item.select_status=='1'?'/images/icons/selected.png':'/images/icons/select.png'}}"></image></view>
+        </view>
+        <view class="product-img"><image mode="widthFix" lazy-load='true' src="{{item.product_img}}"></image></view>
+        <view class="product-info">
+          <view class="product-name tlie">{{item.product_name}}</view>
+          <view class="product-feature">{{item.attr_name}}</view>
+          <view class="product-control">
+            <view class="product-price">￥{{item.product_price}}</view>
+            <view class="product-addcart">
+              <view class="count-c c-reduce" data-id="{{item.id}}" bindtap="reduceCount"></view>
+              <view class="count-c">{{item.product_count}}</view>
+              <view class="count-c c-plus" data-id="{{item.id}}" bindtap="addCount"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      </block>
+      <view class="cart-tabbar">
+        <view class="select-all">
+          <view class="select-all-lable" bindtap="selectAll">
+            <view class="select-all-icon"><image src="{{cart.cart.all_selected==1?'/images/icons/selected.png':'/images/icons/select.png'}}"></image></view>
+            <view style="padding-left:5px;">全选</view>
+          </view>
+        </view>
+        <view class="money-all">总价:<text style="color:#F19F24;">￥{{cart.select_money}}</text></view>
+        <view class="cart-btn {{cart.select_money<=0?'disabledBtn':''}}" bindtap="navToSettlement">结算</view>
+      </view>
+
+    </view>
+  </block>
+  <block wx:if="{{noData}}">
+    <view class="cart-nodata">
+      <image class="cart-nodata-img" src="/images/nodata/shoppingcar.png"></image>
+      <navigator class="r_mt40 cart-nodata-btn" open-type='switchTab' url="/pages/index/index">去逛逛</navigator>
+    </view>
+  </block>
+</view>
+
+<block wx:if="{{showUpdateUserinfo}}">
+<login bindupdateUserInfoSuccess="updateUserInfoSuccess" bindcancleUpdateUserinfo="cancleUpdateUserinfo">
+  <view slot="title">登录提醒</view>
+  <view slot="msg">请授权登录，否则部分功能将无法使用</view>
+</login>
+</block>

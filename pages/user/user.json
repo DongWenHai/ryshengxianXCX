@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "window": {
+    "navigationStyle ": "custom"
+  },
+  "usingComponents": {
+    "login": "/components/login/login"
+  }
+}

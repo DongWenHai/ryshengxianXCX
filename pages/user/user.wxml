@@ -1,0 +1,78 @@
+<view class="user">
+  <view class="bg_white user-info">
+    <image mode="widthFix" src="/images/icons/dingbu.png"></image>
+    <view class="user-info-box">
+      <view class="user-avatarUrl">
+        <!-- <image src="{{userInfo.avatarUrl}}"></image> -->
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class="user-nickname">
+        <!-- {{userInfo.nickName}} -->
+        <open-data type="userNickName"></open-data>
+      </view>
+    </view>
+  </view>
+  <view class="weui-flex bg_white pb10">
+    <view class="weui-flex__item">
+      <view class="tc main_color">{{userData.user_balance}}</view>
+      <view class="tc font_color">钱包</view>
+    </view>
+    <navigator class="weui-flex__item" url="/pages/coupon/coupon">
+      <view class="tc main_color">{{userData.coupon_count}}</view>
+      <view class="tc font_color">优惠券</view>
+    </navigator>
+    <view class="weui-flex__item">
+      <view class="tc main_color">{{userData.user_point}}</view>
+      <view class="tc font_color">积分</view>
+    </view>
+  </view>
+
+  <view class="weui-cells noBorder">
+    <navigator class="weui-cell weui-cell_access" url="/pages/order/order">
+      <view class="weui-cell__bd">我的订单</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">查看全部订单</view>
+    </navigator>
+  </view>
+  <view class="weui-flex bg_white pb10">
+    <navigator class="weui-flex__item" url="/pages/order/order?activeIndex=1">
+      <view class="order-icon"><image src="/images/icons/daifukuan.png"></image><text class="order-count" wx:if="{{userData.order_count.need_pay_count>0}}">{{userData.order_count.need_pay_count}}</text></view>
+      <view class="order-name">待付款</view>
+    </navigator>
+    <navigator class="weui-flex__item" url="/pages/order/order?activeIndex=2">
+      <view class="order-icon"><image src="/images/icons/beihuozhong.png"></image><text class="order-count" wx:if="{{userData.order_count.wait_send_count>0}}">{{userData.order_count.wait_send_count}}</text></view>
+      <view class="order-name">备货中</view>
+    </navigator>
+    <navigator class="weui-flex__item" url="/pages/order/order?activeIndex=3">
+      <view class="order-icon"><image src="/images/icons/peisongzhong.png"></image><text class="order-count" wx:if="{{userData.order_count.wait_confirm_count>0}}">{{userData.order_count.wait_confirm_count}}</text></view>
+      <view class="order-name">配送中</view>
+    </navigator>
+    <navigator class="weui-flex__item" url="/pages/order/order?activeIndex=4">
+      <view class="order-icon"><image src="/images/icons/tuikuan.png"></image><text class="order-count" wx:if="{{userData.order_count.refund_count>0}}">{{userData.order_count.refund_count}}</text></view>
+      <view class="order-name">退货/售后</view>
+    </navigator>
+  </view>
+
+  <view class="weui-cells">
+    <navigator class="weui-cell weui-cell_access" url="/pages/address/address">
+      <view class="weui-cell__bd">地址管理</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <view class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">我的客服</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      <button class="service" open-type='contact' hover-class='none'></button>
+    </view>
+    <!-- <view class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">更多</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view> -->
+  </view>
+
+</view>
+
+<block wx:if="{{showUpdateUserinfo}}">
+<login bindupdateUserInfoSuccess="updateUserInfoSuccess" bindcancleUpdateUserinfo="cancleUpdateUserinfo">
+  <view slot="title">登录提醒</view>
+  <view slot="msg">请授权登录，否则部分功能将无法使用</view>
+</login>
+</block>

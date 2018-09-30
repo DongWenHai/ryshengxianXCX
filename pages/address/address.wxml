@@ -1,0 +1,42 @@
+
+  <!-- 暂无地址 -->
+  <block wx:if="{{false}}">
+    <view class="noaddress">
+      <view class="noaddress-title">你还没有收获地址</view>
+      <navigator class="address-add-btn" url="/pages/addAddress/addAddress">新增地址</navigator>
+      <view class="address-add-btn-wx" bindtap="chooseAddress">从微信添加</view>
+    </view>
+  </block>
+
+  <block wx:if="{{true}}">
+    <view class="address-container">
+      <block wx:for="{{addressData}}" wx:key="{{index}}">
+      <view class="address-item" data-id="{{item.id}}" bindtap='selectAddressToOrder'>
+        <view class="address-detail">
+          <view><text>{{item.shop_name}}</text><text style="padding-left:20rpx;">{{item.shop_phone}}</text></view>
+          <view class="r_mt20 tlie">{{item.provice_name}}{{item.city_name}}{{item.area_name}}{{item.address_details}}</view>
+        </view>
+        <view class="address-control clearfix">
+          <view class="fl {{item.default_select==1?'maincolor':''}}" data-id="{{item.id}}" data-default="{{item.default_select}}" catchtap='setDefaultAddress'>
+            <view class="fl cart-icon" data-id="{{item.id}}">
+              <block wx:if="{{item.default_select == 1}}">
+              <image mode="widthFix" src="/images/icons/ico_5@3x.png"></image>
+              </block>
+              <block wx:else>
+              <image mode="widthFix" src="/images/icons/ico_8@3x.png"></image>
+              </block>
+            </view> 
+            设为默认</view>
+          <view class="fr r_pl20" data-id="{{item.id}}" data-index="{{index}}" data-default_select="{{item.default_select}}" catchtap="deleteAddress">删除</view>
+          <view class="fr" data-id="{{item.id}}" catchtap="editAddress">编辑</view>
+        </view>
+      </view>
+      </block>
+      <view style="height:60px;"></view>
+      <view class="address-tabBar">
+        <view class="address-add-wx" bindtap="chooseAddress">从微信添加</view>
+        <navigator class="address-add-new" url="/pages/addAddress/addAddress">新增地址</navigator>
+      </view>
+
+    </view>
+  </block>

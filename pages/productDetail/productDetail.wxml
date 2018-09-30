@@ -1,0 +1,86 @@
+<view class="productDetail">
+  <!-- 产品大图 -->
+  <!-- <view class="product-img">
+    <image mode="widthFix" src="/source/productDetail/product.jpg"></image>
+  </view> -->
+  <view>
+    <swiper class="imgBanner" style="height:{{bannerHeight}}px" indicator-dots="true" indicator-active-color="#19D368" current="{{current}}" bindchange="changeBanner">
+      <block wx:for="{{productData.banner}}" wx:key="{{index}}">
+        <swiper-item class="bannerImg"><image mode="widthFix" src="{{item.src}}" bindload='imgOnload'></image></swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="product-info">
+    <view class="product-name tlie">{{productData.data.product_name}}</view>
+    <view class="product-feature">{{productData.data.product_label}}</view>
+    <!-- <view class="product-service">
+      <view class="service-key">及时达</view>
+      <view class="service-key">及时达</view>
+    </view> -->
+    <view wx:for="{{attrData}}" wx:key="{{kIndex}}" wx:for-index="kIndex" wx:for-item="kItem">
+      <view class="product-attr-title">{{kItem.attrKey}}</view>
+      <view class="product-attr-container">
+        <block wx:for="{{kItem.attrValue}}" wx:key="{{vIndex}}" wx:for-index="vIndex" wx:for-item="vItem">
+        <view class="product-attr {{kItem.attrControl[vIndex]?(kItem.attrStatus[vIndex]?'product-attr-active':''):'attr_value_disabled'}}" data-attr_value="{{vItem}}" data-attr_id="{{kItem.attrId[vIndex]}}" data-kindex="{{kIndex}}" data-vindex="{{vIndex}}" data-attr_status="{{kItem.attrStatus[vIndex]}}" bindtap="selectAttr">{{vItem}}</view>
+        </block>
+      </view>
+    </view>
+    <view class="product-price">
+      <view>
+        <text style="font-size:28rpx;color:#797979;">￥</text><text style="font-weight:bold;">{{price}}</text><text style='padding-left:20px;font-size:26rpx;color:#999;'>库存：{{stock}}</text>
+      </view>
+      <view class="count-control">
+        <view class="count-c c-reduce" bindtap='reduceCount'></view>
+        <view class="count-c">{{count}}</view>
+        <view class="count-c c-plus" bindtap="addCount"></view>
+      </view>
+    </view>
+    <!-- 商品的描述 -->
+    <view class="product-pro" wx:if="{{productData.data.product_content?true:false}}">
+      <view class="product-pro-title">商品描述</view>
+      <view class="product-pro-box">
+        <!-- <view class="product-pro-li"><text class="desc-title">单果重</text><text>75g</text></view> -->
+        {{productData.data.product_content}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 大家都在买 -->
+  <view class="product-shop">
+    <view class="product-shop-title">大家都在买</view>
+    <view class="product-shop-container">
+      <block wx:if="{{recommendProducts&&recommendProducts.length>0}}">
+        <block wx:for="{{recommendProducts}}" wx:key="{{index}}">
+        <navigator class="product-shop-item" open-type='redirect' url="/pages/productDetail/productDetail?pid={{item.product_id}}">
+          <view class="product-shop-img"><image mode="widthFix" src="{{item.product_img}}"></image></view>
+          <view class="product-shop-name">{{item.product_name}}</view>
+          <view class="product-shop-control">
+            <view class="product-shop-price">￥{{item.product_price}}</view>
+            <view class="product-shop-add"><image src="/images/icons/add.png"></image></view>
+          </view>
+        </navigator>
+        </block>
+      </block>
+      <block wx:else>
+        <view>暂无推荐</view>
+      </block>
+    </view>
+  </view>
+  <!-- 产品详情 -->
+  <view class="product-detail">
+    <block wx:for="{{productData.detail_imgs}}" wx:key="{{index}}">
+    <image mode="widthFix" lazy-load='true' src="{{item.img}}"></image>
+    </block>
+  </view>
+
+  <view class="tabbar">
+    <view class="product-tabbar">
+      <navigator class="cart" open-type='switchTab' url="/pages/cart/cart">
+        <image src="/images/icons/car_def.png"></image>
+        <text class="cart-num" wx:if="{{productData.cart_count>0?true:false}}" animation="{{scaleAnimation}}">{{productData.cart_count}}</text>
+      </navigator>
+      <view class="addcart" bindtap="addCar">加入购物车</view>
+    </view>
+  </view>
+</view>

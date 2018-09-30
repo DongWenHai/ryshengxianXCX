@@ -1,0 +1,44 @@
+<view class="products">
+  <view class="products-nav weui-flex">
+    <view class="weui-flex__item">
+      <view class="products-nav-item {{sort==1?'nav-active':''}}" data-sort="1" bindtap="toggleNav">新品</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="products-nav-item {{sort==2?'nav-active':''}}" data-sort="2" bindtap="toggleNav">销量</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="products-nav-item {{sort==3?'nav-active':''}}" data-sort="3" bindtap="toggleNav">价格高</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="products-nav-item {{sort==4?'nav-active':''}}" data-sort="4" bindtap="toggleNav">价格低</view>
+    </view>
+  </view>
+  <!-- 产品列表 -->
+  <view class="products-list">
+    <block wx:if="{{ProductsData.length>0?true:false}}">
+      <block wx:for="{{ProductsData}}" wx:key="{{index}}">
+      <navigator class="product-item" url="/pages/productDetail/productDetail?pid={{item.product_id}}">
+        <view class="product-img"><image mode="widthFix" lazy-load='true' src="{{item.product_img}}"></image></view>
+        <view class="product-info">
+          <view class="product-name tlie">{{item.product_name}}</view>
+          <view class="product-feature">{{item.product_label}}</view>
+          <view class="product-control">
+            <view class="product-price">￥{{item.product_price}}</view>
+            <view class="product-addcart"><image src="/images/icons/add.png"></image></view>
+          </view>
+        </view>
+      </navigator>
+      </block>
+      <block wx:if="{{!loaded}}">
+        <view class="loading-icons"><image mode="widthFix" src="/images/icons/loading.gif"></image></view>
+      </block>
+      <block wx:if="{{loaded}}">
+        <view class="pageline"><image mode="widthFix" src="/images/icons/pageline.png"></image></view>
+      </block>
+    </block>
+    <block wx:else>
+      <view style="text-align:center;margin-top:50px;color:#999;">暂时没有商品哦</view>
+    </block>
+  </view>
+
+</view>

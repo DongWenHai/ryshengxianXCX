@@ -1,0 +1,24 @@
+<view class="classify">
+  <scroll-view scroll-y="true" class="classify-nav">
+    <view class="classify-nav-container">
+      <block wx:for="{{cData}}" wx:key="{{index}}">
+      <view class="classify-nav-item {{navIndex== index?'classify-nav-active':''}}" data-index="{{index}}" data-id="{{item.id}}" bindtap="toggleNav">{{item.title}}</view>
+      </block>
+    </view>
+  </scroll-view>
+  <scroll-view scroll-y="true" class="classify-content">
+    <view class="classify-container clearfix">
+      <block wx:if="{{cData[navIndex].children.length>0}}">
+        <block wx:for="{{cData[navIndex].children}}" wx:key="{{index}}">
+        <navigator class="classify-item" url="/pages/classifyProduct/classifyProduct?category_id={{item.id}}&title={{item.title}}">
+          <view class="classify-item-icon"><image mode='widthFix' src="{{item.img?item.img:'/images/nodata/noimg.png'}}"></image></view>
+          <view class="classify-item-name omit">{{item.title}}</view>
+        </navigator>
+        </block>
+      </block>
+      <block wx:else>
+        <view class="tc cl_b6" style="width：100%">暂无分类</view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

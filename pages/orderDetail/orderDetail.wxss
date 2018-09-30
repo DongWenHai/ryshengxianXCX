@@ -1,0 +1,99 @@
+
+.slh15{line-height:20px;padding-left:10px;padding-top:8px;}
+.hasOrderTab{
+  height:56px;
+}
+.address-logo{
+  width:24px;
+  height:24px;
+  margin-right:10px;
+}
+.contactstorer{
+  padding-left:18px;
+  background:url('https://aoyivideo.oss-cn-shenzhen.aliyuncs.com/test/msg.png') no-repeat left center;
+  background-size:14px;
+}
+.order-product-photo{
+  width:80px;
+  height:80px;
+  margin-right:10px;
+  overflow: hidden;
+}
+.order-item-detail{
+  width:calc(100% - 146px);
+}
+.order-item-name{
+  width:100%;
+}
+.order-remark{
+  background:#f8f8f8;
+  padding:0 5px;
+}
+.order-tab{
+  width:100%;
+  height:56px;
+  background:#fff;
+  border-top:1px solid #f3f3f3;
+  box-sizing: border-box;
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:999;
+}
+.account-button{
+  height:56px;
+  line-height:56px;
+  padding:0 20px;
+  background:#f73b3b;
+  color:#fff;
+  float:right;
+}
+.orderdetail-btn{
+  float:right;
+  padding:0 30rpx;
+  border-radius:22px;
+  border:1px solid #e2e2e2;
+  line-height:32px;
+  margin:12px 10px 12px 0px;
+}
+.orderdetail-btn-assetive{
+  color:#f73b3b;
+  border:1px solid #f73b3b;
+} 
+
+.dot{
+  width:14px;
+  height:14px;
+  display:inline-block;
+  border-radius: 50%;
+  margin-right:10px;
+}
+.logisticsBox{
+  height:calc(100% - 35px);
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.close{
+  width:48rpx;
+  height:48rpx;
+  position:absolute;
+  top:5rpx;
+  right:20rpx;
+}
+
+
+/* 揽件 */
+.yc1{background:#ffa70e}
+/* 在途 */
+.yc2{background:#06fd7a}
+/* 派件 */
+.yc3{background:#e6e9bb}
+/* 签收 */
+.yc4{background:#0597fd}
+/* 问题件  */
+.yc5{background:#fd0505} 
+/* 其他  */
+.yc5{background:#999} 

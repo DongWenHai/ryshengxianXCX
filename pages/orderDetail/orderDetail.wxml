@@ -1,0 +1,166 @@
+
+<view class="orderConfirm">
+<block>
+  <view class="weui-cell bg_white bt1">
+    <view class="weui-cell__hd">
+      <view class="address-logo"><text class="iconfont icon-dizhi"></text></view>
+    </view>
+    <view class="weui-cell__bd">
+      <view class="">{{order.ship_name}}：{{order.ship_phone}}</view>
+      <view class="cl_b6">{{order.ship_province}} {{order.ship_city}} {{order.ship_area}} {{order.ship_address}}</view>
+    </view>
+  </view>
+
+    <view class="weui-cells">
+      <view class="bt1">
+        <block wx:for="{{orderData}}" wx:key="{{index}}">
+        <navigator class="weui-cell" url="/pages/productDetail/productDetail?product_id={{item.product_id}}">
+          <view class="weui-cell__hd">
+            <view class="order-product-photo"><image mode="widthFix" src="{{item.product_img}}"></image></view>
+          </view>
+          <view class="weui-cell__bd order-item-detail">
+            <view class="tlie order-item-name">{{item.product_name}}</view>
+            <view class="r_pt20 r_fz24 cl_b6">
+              {{item.product_attr_name}}
+            </view>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="clr"><text class="r_fz24">￥</text>{{item.product_price}}</view>
+            <view class="fr r_fz24 r_pt40 cl_b6">×{{item.product_count}}</view>
+          </view>
+        </navigator>
+        </block>
+
+        <!-- <view class="weui-cell">
+          <view class="weui-cell__bd">快递运费</view>
+          <view class="weui-cell__ft cl_b3">￥{{order.ship_fee}}</view>
+        </view> -->
+        <!-- <view class="weui-cell">
+          <view class="weui-cell__bd">退货运费补贴</view>
+          <view class="weui-cell__ft cl_b3">卖家赠送</view>
+        </view> -->
+        <view class="weui-cell">
+          <view class="weui-cell__bd">店铺优惠券</view>
+          <view class="weui-cell__ft clr">
+              {{order.coupon_money}}
+          </view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">合计</view>
+          <view class="weui-cell__ft cl_b3">￥{{order.total_money}}</view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">备注：</view>
+          <view class="weui-cell__bd order-remark">
+            {{order.liuyan}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells">
+      <view class="r_p20 cl_b6 r_fz28">
+        <view class="">订单编号：{{order.orderid}}</view>
+        <view>创建时间：{{order.addtime}}</view>
+        <view wx:if="{{order.order_status == 0}}">交易取消</view>
+        <view wx:if="{{order.order_status == -1}}">
+          <block wx:if="{{order.refund_status == 0}}">
+            退款失败
+          </block>
+          <block wx:if="{{order.refund_status == 1}}">
+            待处理
+          </block>
+          <block wx:if="{{order.refund_status == 2}}">
+            处理中
+          </block>
+          <block wx:if="{{order.refund_status == 3}}">
+            退款成功
+          </block>
+        </view>
+      </view>
+    </view>
+
+  <view class="hasOrderTab"></view>
+  <view class="order-tab clearfix">
+    <view class="clearfix">
+
+      <block wx:if="{{order.order_status == -1 && order.refund_status == 3}}">
+      <text class="orderdetail-btn" data-orderid="{{order.orderid}}" bindtap='deleteOrder'>删除订单</text>
+      </block>
+
+      <block wx:if="{{order.order_status == 1}}">
+      <view class="orderdetail-btn orderdetail-btn-assetive" bindtap='payOrder'>付款</view>
+      <text class="orderdetail-btn" data-orderid="{{order.orderid}}" bindtap='cancleOrder'>取消</text>
+      </block>
+
+      <block wx:if="{{order.order_status == 0}}">
+      <text class="orderdetail-btn" data-orderid="{{order.orderid}}" bindtap='deleteOrder'>删除订单</text>
+      </block>
+
+      <block wx:if="{{order.order_status == 3}}">
+      <text class="orderdetail-btn orderdetail-btn-assetive" data-autoid="{{order.id}}" bindtap='tipsSend'>提醒发货</text>
+      <navigator class="orderdetail-btn" url="/pages/refund/refund?backpage=2&orderid={{order.orderid}}">退货退款</navigator>
+      </block>
+
+      <block wx:if="{{order.order_status == 4}}">
+      <text class="orderdetail-btn orderdetail-btn-assetive" data-orderid="{{order.orderid}}" bindtap='confirmAccept'>确认收货</text>
+      <text class="orderdetail-btn orderdetail-btn-assetive" data-waybill_no="{{order.waybill_no}}" data-logistics_code="{{order.logistics_code}}" bindtap='lookLogistics'>查看物流</text>
+      <navigator class="orderdetail-btn" url="/pages/refund/refund?backpage=2&orderid={{order.orderid}}">退货退款</navigator>
+      </block>
+
+      <block wx:if="{{order.order_status == 6}}">
+      <text class="orderdetail-btn" data-orderid="{{order.orderid}}" bindtap='deleteOrder'>删除订单</text>
+      <text class="orderdetail-btn orderdetail-btn-assetive" data-waybill_no="{{order.waybill_no}}" data-logistics_code="{{order.logistics_code}}" bindtap='lookLogistics'>查看物流</text>
+      </block>
+    </view>
+  </view>
+
+</block>
+
+
+ <!-- 物流 -->
+  <block wx:if="{{isShowLogistics}}">
+    <view class="actionModel" catchtouchmove='true'>
+      <view class="mask" bindtap="closeLogistics"></view>
+      <view class="actionModelContainer" style="width:calc(100% - 60rpx);height:86%;overflow:hidden;">
+        <view class="close" bindtap="closeLogistics"><text class="fa fa-times-circle cl_b3 fa-6x"></text></view>
+        <view class="tc r_pb20">物流服务</view>
+        <scroll-view scroll-y class="logisticsBox">
+        <view class="r_fz24 lh28">物流公司：{{logistics.ShipperCode}}</view>
+        <view class="r_fz24 lh28">物流单号：{{logistics.LogisticCode}}</view>
+         <block wx:for="{{logistics.Traces}}" wx:key="{{index}}"> 
+          <view class="weui-cell notBorder">
+            <view class="weui-cell__hd">
+            <block wx:if="{{item.Action == 1}}">
+            <text class="dot yc1"></text>
+            </block>
+            <block wx:elif="{{item.Action == 2}}">
+            <text class="dot yc2"></text>
+            </block>
+            <block wx:elif="{{item.Action == 202}}">
+            <text class="dot yc3"></text>
+            </block>
+            <block wx:elif="{{item.Action == 3}}">
+            <text class="dot yc4"></text>
+            </block>
+            <block wx:elif="{{item.Action == 4}}">
+            <text class="dot yc5"></text>
+            </block>
+            <block wx:else>
+            <text class="dot yc6"></text>
+            </block>
+            </view>
+            <view class="weui-cell__bd">
+              <view class="cl_b6 r_fz24">{{item.AcceptTime}}</view>
+              <view class="r_fz24">{{item.AcceptStation}}</view>
+            </view>
+          </view>
+         </block> 
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+
+</view>
+
+

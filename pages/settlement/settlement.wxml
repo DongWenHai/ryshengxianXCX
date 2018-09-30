@@ -1,0 +1,99 @@
+<view class='settlement'>
+
+  <view class="r_pt20">
+    <block wx:if="{{defaultAddress?true:false}}">
+      <view class="bg_white pcell">
+        <view class="clearfix pv">
+          <view class='fl'>{{defaultAddress.shop_name}}</view>
+          <view class="fr">{{defaultAddress.shop_phone}}</view>
+        </view>
+        <view class="r_pb20 bb1">{{defaultAddress.address_location}} {{defaultAddress.address_details}}</view>
+        <view class="clearfix r_pt20">
+          <view class="fl lh25 maincolor" bindtap='setDefaultAddress'>
+            <view class="fl cart-icon">
+              <block wx:if="{{defaultAddress.default_select == 1}}">
+                <image mode="widthFix" src="/images/icons/selected.png"></image>
+              </block>
+              <block wx:else>
+                <image mode="widthFix" src="/images/icons/select.png"></image> 
+              </block>     
+            </view> 
+            设为默认
+          </view>
+          <navigator class="fr lh25 r_pl20 cl_b6" url="/pages/address/address?from=2"> 重选</navigator>
+          <view class="fr lh25 r_pl20 cl_b6" bindtap='editAddress'>编辑</view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <navigator class="weui-cell weui-cell_access bg_white" url="/pages/addAddress/addAddress?from=1">
+        <view class="weui-cell__hd"><icon type="warn" size="20" style="margin-right:20rpx;"></icon></view>
+        <view class="weui-cell__bd lh25">还没有地址，立即添加</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </block>
+  </view>
+
+  <view class="bg_white">
+  <block wx:for="{{settlementData}}" wx:key="{{index}}">
+    <view class="r_mt20 pcell">
+      <view class="clearfix">
+        <view class="fl list-img">
+          <image class="" mode='widthFix' lazy-load='true' src="{{item.product_img}}"></image>
+        </view>
+        <view class="fl list-content">
+          <view class="r_fz30 lh20 tlie">{{item.product_name}}</view>
+          <view class="cl_b9 r_fz28 clearfix">{{item.attr_name}}<text class='fr'>×{{item.product_count}}</text></view>
+          <view class="clearfix">
+            <view class="fl main_color lh25">￥{{item.product_price}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+    <block wx:if="{{selectedCoupon.length == 0}}">
+      <view class="weui-cell">
+        <view class='weui-cell__bd'>优惠券</view>
+        <view class="weui-cell__ft">暂无可用优惠券</view>
+      </view>
+    </block>
+    <block  wx:if="{{selectedCoupon.length > 0}}">
+    <navigator class="weui-cell" url="/pages/selectCoupon/selectCoupon?total_money={{totalMoney}}&id={{selectedCoupon[0].id}}">
+      <view class='weui-cell__bd'>优惠券</view>
+      <view class="weui-cell__ft">{{selectedCoupon[0].coupon_money>0?'-￥'+selectedCoupon[0].coupon_money:'暂不使用优惠券'}}</view>
+    </navigator>
+    </block>
+    <view class="weui-cell">
+      <view class='weui-cell__hd'>留言:</view>
+      <view class="weui-cell__bd"><input class='weui-input' style="padding-left:5px;" placeholder='请输入备注' value="{{liuyan}}" bindinput='setLiuyan'></input></view>
+    </view>
+  </view>
+
+  <view class="weui-cells">
+    <!-- <view class="weui-cell">
+      <view class="weui-cell__bd">配送费</view>
+      <view class="weui-cell__ft">￥0</view>
+    </view> -->
+    <view class="weui-cell">
+      <view class="weui-cell__bd">支付方式</view>
+      <view class="weui-cell__ft lh25 cl_b3">
+        <view class="fl cart-icon"><image mode="widthFix" src="/images/icons/wxico@3x.png"></image></view> 微信支付
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">商品金额</view>
+      <view class="weui-cell__ft">￥{{totalMoney}}</view>
+    </view>
+  </view>
+
+
+  <view class="hasTabs"></view>
+  <view class="footerTabs">
+    <view class="fl total-money">
+      实际支付： <text class="r_fz36 main_color">￥{{totalPay>=0?totalPay:0}}</text>
+    </view>
+    <view class="fr pay-order" bindtap="payOrder">支付订单</view>
+  </view>
+  
+
+</view>

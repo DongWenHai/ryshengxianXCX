@@ -1,0 +1,29 @@
+<view class="coupon">
+  <block wx:if="{{couponData.length>0}}">
+    <block wx:for="{{couponData}}" wx:key="{{index}}">
+    <view class="coupon-item">
+      <view class="coupon-card">
+        <view class="coupon-info {{item.send_type==0?'coupon-theme-fresh':'coupon-theme-assertive'}}">
+          <view class="flex-box">
+            <view>
+              <view class="coupon-name">{{item.coupon_name}}</view>
+              <view class="coupon-condition">满{{item.min_money}}减{{item.coupon_money}}</view>
+            </view>
+            <view class="coupon-money"><text class="coupon-money-type">￥</text><text class="coupon-money-money">{{item.coupon_money}}</text></view>
+          </view>
+          <view class="coupon-time">
+            <view>{{item.start_time}}-{{item.expire_time}}</view>
+            <navigator open-type='switchTab' url="/pages/index/index">立即使用</navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+  </block>
+  <block wx:else>
+    <view class="noData">
+      <image mode="widthFix" src="/images/nodata/order.png"></image>
+      <view class="cl_b3 r_pt20">暂时没有优惠券</view>
+    </view>
+  </block>
+</view>

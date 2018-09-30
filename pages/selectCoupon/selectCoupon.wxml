@@ -1,0 +1,24 @@
+<view class="selsectCoupon">
+  <radio-group class="pcell" bindchange="selectCoupon">
+    <block wx:for="{{coupon}}" wx:key="{{index}}">
+    <label class="weui-cell coupon-item r_mb20">
+      <view class="weui-cell__bd">
+        <block wx:if="{{item.id != 0 && item.id}}">
+        <view>{{item.coupon_name}}</view>
+        <view>满{{item.min_money}}减{{item.coupon_money}}</view>
+        <view class="cl_b9 r_fz24">有效期：{{item.start_time}}-{{item.expire_time}}</view>
+        </block>
+        <block wx:if="{{item.id == 0 || !item.id}}">
+          暂不使用优惠券
+        </block>
+      </view>
+      <view class="weui-cell__ft">
+        <radio class="weui-check" name='coupon' checked="{{item.select_status==1?true:false}}" value="{{item.id}}"></radio>
+        <text class="{{item.select_status==1?'weui-icon-checked':'weui-icon-check'}}"></text>
+      </view>
+    </label>
+    </block>
+
+  </radio-group>
+
+</view>

@@ -1,0 +1,9 @@
+page{
+  background:#fff;
+}
+.r_pt40{
+  padding-top:40rpx;
+}
+.r_mt40{
+  margin-top:40rpx;
+}

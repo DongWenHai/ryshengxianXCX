@@ -1,0 +1,81 @@
+
+<view class="refund">
+  <view class="r_p20 bg_white">退款商品</view>
+  <view class="bg_white bt1">
+    <navigator class="weui-cell" url="/pages/productDetail/productDetail?pid={{orderData[0].product_id}}">
+      <view class="weui-cell__hd">
+        <view class="order-product-photo"><image mode="widthFix" src="{{orderData[0].product_img}}"></image></view>
+      </view>
+      <view class="weui-cell__bd order-item-detail">
+        <view class="tlie order-item-name">{{orderData[0].product_name}}</view>
+        <view class="r_pt20 r_fz24 cl_b6">
+          {{orderData[0].product_attr_name}}
+        </view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="clr"><text class="r_fz24">￥</text>{{orderData[0].product_price}}</view>
+        <view class="fr r_fz24 r_pt40 cl_b6">×{{orderData[0].product_count}}</view>
+      </view>
+    </navigator>
+  </view>
+
+  <view class="r_mt20 r_p20 bg_white">
+    <view class="r_pb20">退款方式</view>
+    <radio-group class="radio-group" bindchange="typeradioChange">
+      <label class="radio typeradio" wx:for="{{typeradio}}" wx:key="index">
+        <radio value="{{item.value}}" color="#19D368" checked="{{item.checked}}"/> <text style="display:inline-block;line-height:27px;">{{item.name}}</text> 
+      </label>
+    </radio-group>
+  </view>
+
+    <view class="r_mt20 r_p20 bg_white">
+      <view class="r_pb20">产品状态</view>
+      <radio-group class="radio-group" bindchange="statusradioChange">
+        <label class="radio typeradio" wx:for="{{statusradio}}" wx:key="index">
+          <radio value="{{item.value}}" color="#19D368" checked="{{item.checked}}"/> <text style="display:inline-block;line-height:27px;">{{item.name}}</text> 
+        </label>
+      </radio-group>
+  </view>
+
+  <view class="r_mt20 bg_white r_p20">
+    <view class="r_pb20">退款原因</view>
+    <view class="clearfix">
+        <block wx:for="{{reasonData}}" wx:key="index">
+          <view class="reason-mark {{reasonIndex == index?'reason-mark-active':''}}" data-index="{{index}}" bindtap="setReason">{{item}}</view>
+        </block>
+    </view>
+    
+    <view class="r_pb20">其他：</view>
+    <view class="">
+      <input class="other-reason {{reasonIndex == null?'':'border-disabled'}}" type="text" disabled="{{reasonIndex == null?false:true}}" value="{{reason}}" bindinput="otherReason"></input>
+    </view>
+  </view>
+
+  <view class="r_mt20 bg_white r_p20">
+    <view class="r_pb20">备注</view>
+    <view class="">
+      <input class="other-reason" type="text" placeholder='请填写备注' bindinput='setBeizhu'></input>
+    </view>
+  </view>
+
+  <!-- <view class="r_p20 r_mt20 bg_white">
+    <view class="">上传图片：<text wx:if="{{commentsPhoto.length>0}}" class="fr cl_b6 f14" bindtap='showDeletetip'>{{notDelete?'取消编辑':'编辑'}}</text></view>
+    <view class="clearfix">
+      <block wx:for="{{commentsPhoto}}" wx:key="{{index}}">
+      <view class="screenshot fl">
+        <image mode="widthFix" src="{{item}}"></image>
+          <view wx:if='{{notDelete}}' class="deletetip" data-index="{{index}}" bindtap='deleteSelectPhoto' animation="{{bounceInUp}}">删除</view>
+      </view>
+      </block>
+
+      <view wx:if="{{commentsPhoto.length<5&&!notDelete}}" class="screenshot fl" bindtap='getcommentsPhoto'>
+        <image mode="widthFix" src="/images/icons/addicon.png"></image>
+      </view>
+    </view>
+  </view> -->
+
+  <view class="r_p20 mt20">
+    <view class="weui-btn bg_main" bindtap="refundSubmit">申请退款</view>
+  </view>
+</view>
+

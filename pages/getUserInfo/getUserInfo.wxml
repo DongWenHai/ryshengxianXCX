@@ -1,0 +1,7 @@
+<view class="getUserInfo">
+  <view class="tc r_pt40">提示</view>
+  <view class="tc pcell r_mt401">请授权登录，否则部分功能将无法使用</view>
+  <view class="r_mt40 pcell">
+    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">授权登录</button>
+  </view>
+</view>

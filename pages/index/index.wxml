@@ -1,0 +1,148 @@
+<!--index.wxml-->
+<view class="index">
+
+  <view class="search-box">
+    <navigator class="search-input" url="/pages/search/search">
+      <icon class="search-icon" type="search" size="20"></icon>
+      请输入搜索关键词
+    </navigator>
+  </view>
+
+  <!-- 分类导航 -->
+  <view class="index-nav" style="width:100%;flex-wrap:wrap;">
+    <block wx:for="{{navData}}" wx:key="{{index}}">
+    <navigator class="index-nav-item" hover-class='hover' url="/pages/products/products?cid={{item.id}}&title={{item.title}}">
+      <view class="index-nav-img"><image src="{{item.img}}"></image></view>
+      <view class="index-nav-title">{{item.title}}</view>
+    </navigator>
+    </block>
+  </view>
+
+  <!-- 用户邀请 -->
+  <view class="cell index-share">
+    <image mode="widthFix" src="/images/20180901150827.png"></image>
+    <button class="sharebtn" open-type='share'></button>
+  </view>
+
+  <!-- ============== -->
+  <view class="pl15">
+    <text class="index-title-type">每日首杯8元</text>
+    <text class="font_color">搭配更优惠</text>
+  </view>
+
+  <!-- banner -->
+  <view class="cell">
+    <swiper indicator-dots="true" indicator-active-color="#fff" autoplay="true" interval="3000" circular="true" style="height:{{swiperHeight}}px">
+    <block wx:for="{{bannerData}}" wx:key="{{index}}">
+      <swiper-item><image mode='widthFix' src="{{item.banner_pic}}" bindload="imgOnload"></image></swiper-item>
+    </block>
+    </swiper>
+  </view>
+  <view class="index-recommend">
+    <block wx:for="{{hotProductsData}}" wx:key="{{index}}">
+    <navigator class="index-recommend-item" hover-class='hover' url="/pages/productDetail/productDetail?pid={{item.product_id}}">
+      <view class="index-recommend-img"><image src="{{item.product_img}}"></image></view>
+      <view class="index-recommend-title omit">{{item.product_name}}</view>
+      <view class="index-recommend-price"><text style="color:#F1A128">￥{{item.product_price}}</text>/盒</view>
+    </navigator>
+    </block>
+  </view>
+
+  <!-- 周周精选 -->
+  <view class="selected">
+    <view class="index-title">周周精选</view>
+    <view class="weui-flex cell">
+      <navigator class="weui-flex__item selected-left" url="/pages/special/special?sid={{specialData[0].special_id}}&title={{specialData[0].title}}">
+        <image mode="widthFix" src="{{specialData[0].img}}"></image>
+      </navigator>
+      <view class="weui-flex__item selected-right">
+        <navigator class="selected-right-top" url="/pages/special/special?sid={{specialData[1].special_id}}&title={{specialData[1].title}}">
+          <image mode="widthFix" src="{{specialData[1].img}}"></image>
+        </navigator>
+        <navigator class="selected-right-bottom" url="/pages/special/special?sid={{specialData[2].special_id}}&title={{specialData[2].title}}">
+          <image mode="widthFix" src="{{specialData[2].img}}"></image>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- 每日上新 -->
+  <view class="index-new">
+    <view class="index-title">每日上新</view>
+    <view class="index-new-nav">
+      <block wx:for="{{dateNewNav}}" wx:key="{{index}}">
+      <view class="index-new-nav-item {{dateNewNavIndex==index?'index-new-active':''}}" data-index="{{index}}" data-id="{{item.id}}" bindtap="toggleDateNewNav">{{item.title}}</view>
+      </block>
+    </view>
+    <view class="index-new-list">
+      <block wx:for="{{dateNewProductsData}}" wx:key="{{index}}">
+      <navigator class="product-item" url="/pages/productDetail/productDetail?pid={{item.product_id}}">
+        <view class="product-img"><image mode="widthFix" lazy-load='true' src="{{item.product_img}}"></image></view>
+        <view class="product-info">
+          <view class="product-name tlie">{{item.product_name}}</view>
+          <view class="product-feature">已售{{item.product_sale}}</view>
+          <view class="product-control">
+            <view class="product-price">￥{{item.product_price}}</view>
+            <view class="product-addcart" data-pid="{{item.product_id}}" catchtap='addcart'><image src="/images/icons/add.png"></image></view>
+          </view>
+        </view>
+      </navigator>
+      </block>
+      <block wx:if="{{!loaded}}">
+        <view class="loading-icons"><image mode="widthFix" src="/images/icons/loading.gif"></image></view>
+      </block>
+      <block wx:if="{{loaded}}">
+        <view class="pageline"><image mode="widthFix" src="/images/icons/pageline.png"></image></view>
+      </block>
+    </view>
+  </view>
+
+
+</view>
+<!-- 登录框 -->
+<!-- <block wx:if="{{showUpdateUserInfo}}">
+<login>
+  <view slot="title">登录提醒</view>
+  <view slot="msg">请授权登录，否则部分功能将无法使用</view>
+  <button slot="button" open-type='getUserInfo' class="modelConfirm" bindgetuserinfo='getUserInfo'>确认</button>
+</login>
+</block> -->
+
+  <!-- 产品属性选择弹窗 -->
+  <block wx:if="{{showAttrModel}}">
+  <view class="modelbox"animation="{{modelAnimation}}" style="opacity:0;">
+    <view class="mask" bindtap='closeAttrModel'></view>
+    <view class="modelbox-container">
+      <!-- 关闭模态框 -->
+      <view class="close-model" bindtap='closeAttrModel'><icon type='clear'></icon></view>
+
+      <!-- <view class="model-p-image"><image mode="widthFix" src="{{productData.product_source_img}}"></image></view> -->
+      <view class="model-p-name">{{productData.product_name}}</view>
+      <view class="model-p-price">￥{{price}}</view>
+      <!-- 数量控制 -->
+      <view class="model-p-count">
+        <view class="mode-control m-reduce" bindtap="reduceCount"></view>
+        <view class="mode-control m-count">{{count}}</view>
+        <view class="mode-control m-plus" bindtap="addCount"></view>
+      </view>
+      <!-- 属性 -->
+      <view class="model-attr-box">
+        <block wx:for="{{attrData}}" wx:key="{{kIndex}}" wx:for-index="kIndex" wx:for-item="kItem">
+        <view class="model-attr-item">
+          <view class="model-attr-title">{{kItem.attrKey}}</view>
+          <view class="weui-flex" style="flex-wrap:wrap;">
+            <block wx:for="{{kItem.attrValue}}" wx:key="{{vIndex}}" wx:for-index="vIndex" wx:for-item="vItem">
+            <view class="weui-flex__item" style="padding:10rpx;min-width:25%;box-sizing:border-box;"><view class="model-attr-name {{kItem.attrControl[vIndex]?(kItem.attrStatus[vIndex]?'attr-selected':''):'attr_value_disabled'}}" data-attr_value="{{vItem}}" data-attr_id="{{kItem.attrId[vIndex]}}" data-kindex="{{kIndex}}" data-vindex="{{vIndex}}" data-attr_status="{{kItem.attrStatus[vIndex]}}" bindtap="selectAttr">{{vItem}}</view></view>
+            </block>
+          </view>
+        </view>
+        </block>
+      </view>
+      <!-- 操作 -->
+      <view class="model-controller">
+        <view class="model-shop" hover-class='hover' data-pid="{{productData.product_id}}" bindtap="addCar">加入购物车</view>
+        <!-- <view class="model-add" hover-class='hover' data-pid="{{productData.product_id}}" bindtap="shop">立即购买</view> -->
+      </view>
+    </view>
+  </view>
+  </block>

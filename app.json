@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/classify/classify",
+    "pages/cart/cart",
+    "pages/user/user",
+    "pages/search/search",
+    "pages/productDetail/productDetail",
+    "pages/coupon/coupon",
+    "pages/products/products",
+    "pages/address/address",
+    "pages/addAddress/addAddress",
+    "pages/editAddress/editAddress",
+    "pages/order/order",
+    "pages/orderDetail/orderDetail",
+    "pages/classifyProduct/classifyProduct",
+    "pages/errorPage/errorPage",
+    "pages/settlement/settlement",
+    "pages/getUserInfo/getUserInfo",
+    "pages/special/special",
+    "pages/searchResult/searchResult",
+    "pages/refund/refund",
+    "pages/selectCoupon/selectCoupon"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#19D368",
+    "navigationBarTitleText": "若宇生鲜",
+    "navigationBarTextStyle": "light",
+    "backgroundColor": "#bfffdd"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#19D368",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/images/icons/home_def.png",
+        "selectedIconPath": "/images/icons/home.png"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "分类",
+        "iconPath": "/images/icons/fenlei_def.png",
+        "selectedIconPath": "/images/icons/fenlei.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "/images/icons/car_def.png",
+        "selectedIconPath": "/images/icons/car.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "用户",
+        "iconPath": "/images/icons/me_def.png",
+        "selectedIconPath": "/images/icons/me.png"
+      }
+    ]
+  }
+}
